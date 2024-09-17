@@ -1,4 +1,27 @@
-<h1><span> SALA DE JUEGOS </span> </h1>
-<button routerLink="quienSoy" >Quien Soy</button>
+<div>
+    <mat-sidenav-container class="nav">
+        <mat-sidenav>Start</mat-sidenav>
+        <mat-sidenav-content id="navs"><h1>SALA DE JUEGOS</h1>
+            <div >
+                <ul>
+                    <li>
+                      <a href="#">Home</a>
+                    </li>
+                    <li>
+                      <a href="#">Features</a>
+                    </li>
+                    <li>
+                      <a href="#">Pricing</a>
+                    </li>
+                    <li>
+                      <a href="#">Disabled</a>
+                    </li>
+                  </ul>
+            </div>
+        </mat-sidenav-content>
+        <section>Main</section>        
+    </mat-sidenav-container>
+</div>
+<button routerLink="quiensoy" >Quien Soy</button>
 <!-- <button [routerLink]="'./quienSoy'" >Quien Soy</button> -->
 <router-outlet />

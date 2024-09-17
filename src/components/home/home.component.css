@@ -1,0 +1,20 @@
+body{
+    background: url(../../assets/img/fondoJuegos.jfif);
+}
+#navs{
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+    background-color: lightgray;
+}
+
+ul{
+    display: flex;
+    list-style-type: none;
+    border-radius: 5px;
+}
+
+ul li a{
+    text-decoration: none;
+    margin: 5px 10px;
+}
