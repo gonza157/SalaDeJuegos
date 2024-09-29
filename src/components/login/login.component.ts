@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import Toastify from 'toastify-js'
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -27,13 +28,14 @@ export class LoginComponent {
   registerNombre : string = "";
   registerClave : string = "";
   registerClave2 : string = "";
-  registerEmail : string = "";
+  registerEmail : string = ""; 
   flag : boolean = false;
+  msjError : string = "";
 
   public loginsCollection:any[] = [];
   public countLogins:number = 0;
   private sub!:Subscription;
-  constructor( private router: Router ,private activatedRoute: ActivatedRoute, private firestore: Firestore) {  }
+  constructor( private router: Router ,private activatedRoute: ActivatedRoute, private firestore: Firestore, public auth:Auth) {  }
 
   ngOnInit():void{
     /* const userString = JSON.stringify(this.users);
@@ -73,61 +75,91 @@ export class LoginComponent {
   }
 
   Register(){
-    let col = collection(this.firestore, 'logins');
-    if(this.registerNombre != "" && this.registerClave != ""){
-      addDoc(col, { "user": this.registerNombre, "clave": this.registerClave});
-      //alert("El usuario se creo Correctamente");
-      Toastify({
-        text: "El usuario se creo Correctamente",
-        duration: 3000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true,
-        style: {
-          background: "linear-gradient(to right, #00b09b, #96c93d)",
-        }
-      }).showToast();
-      this.Login();
-    }else{
-      //alert("Datos invalidos");
-      Toastify({
-        text: "Datos invalidos",
-        duration: 30000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true,
-        style: {
-          background: "red",
-        }
-      }).showToast();
-    }
-
-    if(this.flag){
-      this.router.navigate(["home"]);
-    }else{ 
-      //alert("Algo salio mal a la hora del login, por favor intenta ingresar nuevamente");
-      Toastify({
-        text: "Algo salio mal a la hora del login, por favor intenta ingresar nuevamente",
-        duration: 3000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: true,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true,
-        style: {
-          background: "red",
-        }
-      }).showToast();
-      location.reload();
-    }
+    debugger
+    createUserWithEmailAndPassword(this.auth, this.registerEmail, this.registerClave).then((rest)=>{
+      debugger
+      if(rest.user.email !== null){
+        
+      }
+    }).catch((e)=>{
+      debugger
+      switch(e.code){
+        case "auth/invalid-email":
+          this.msjError = "Email no valido";
+          console.log(this.msjError);
+          break;
+        case "auth/email-already-in-use":
+          this.msjError = "Email ya se encuntra en uso";
+          console.log(this.msjError);
+          break;
+        case "auth/weak-password":
+          this.msjError = "La contraseña no cumple con las condicones minimas";
+          console.log(this.msjError);
+          break;
+        default :
+          this.msjError = e.code;
+          console.log(e.code);
+          break;
+      }
+    })
   }
+
+  // Register(){
+  //   let col = collection(this.firestore, 'logins');
+  //   if(this.registerNombre != "" && this.registerClave != ""){
+  //     addDoc(col, { "user": this.registerNombre, "clave": this.registerClave});
+  //     //alert("El usuario se creo Correctamente");
+  //     Toastify({
+  //       text: "El usuario se creo Correctamente",
+  //       duration: 3000,
+  //       destination: "https://github.com/apvarun/toastify-js",
+  //       newWindow: true,
+  //       close: true,
+  //       gravity: "top", // `top` or `bottom`
+  //       position: "left", // `left`, `center` or `right`
+  //       stopOnFocus: true,
+  //       style: {
+  //         background: "linear-gradient(to right, #00b09b, #96c93d)",
+  //       }
+  //     }).showToast();
+  //     this.Login();
+  //   }else{
+  //     //alert("Datos invalidos");
+  //     Toastify({
+  //       text: "Datos invalidos",
+  //       duration: 30000,
+  //       destination: "https://github.com/apvarun/toastify-js",
+  //       newWindow: true,
+  //       close: true,
+  //       gravity: "top", // `top` or `bottom`
+  //       position: "left", // `left`, `center` or `right`
+  //       stopOnFocus: true,
+  //       style: {
+  //         background: "red",
+  //       }
+  //     }).showToast();
+  //   }
+
+  //   if(this.flag){
+  //     this.router.navigate(["home"]);
+  //   }else{ 
+  //     //alert("Algo salio mal a la hora del login, por favor intenta ingresar nuevamente");
+  //     Toastify({
+  //       text: "Algo salio mal a la hora del login, por favor intenta ingresar nuevamente",
+  //       duration: 3000,
+  //       destination: "https://github.com/apvarun/toastify-js",
+  //       newWindow: true,
+  //       close: true,
+  //       gravity: "top", // `top` or `bottom`
+  //       position: "left", // `left`, `center` or `right`
+  //       stopOnFocus: true,
+  //       style: {
+  //         background: "red",
+  //       }
+  //     }).showToast();
+  //     location.reload();
+  //   }
+  // }
 
   GetData(){
     debugger

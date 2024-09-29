@@ -27,21 +27,21 @@
 				</div>
 				<div class="sign-up-htm">
 					<div class="group">
-						<label for="user" class="label">Username</label>
-						<input id="user" type="text" class="input" [(ngModel)]="registerNombre">
-					</div>
-					<div class="group">
-						<label for="pass" class="label">Password</label>
-						<input id="pass" type="password" class="input" data-type="password" [(ngModel)]="registerClave2">
+						<label for="pass" class="label">Email Address</label>
+						<input id="pass" type="text" class="input" [(ngModel)]="registerEmail">
 					</div>
 					<div class="group">
 						<label for="pass" class="label">Repeat Password</label>
 						<input id="pass" type="password" class="input" data-type="password" [(ngModel)]="registerClave">
 					</div>
-					<div class="group">
-						<label for="pass" class="label">Email Address</label>
-						<input id="pass" type="text" class="input" [(ngModel)]="registerEmail">
-					</div>
+					<!-- <div class="group">
+						<label for="user" class="label">Username</label>
+						<input id="user" type="text" class="input" [(ngModel)]="registerNombre">
+					</div> -->
+					<!-- <div class="group">
+						<label for="pass" class="label">Password</label>
+						<input id="pass" type="password" class="input" data-type="password" [(ngModel)]="registerClave2">
+					</div> -->
 					<div class="group">
 						<input type="submit" class="button" (click)="Register()" value="Sign Up">
 					</div>
@@ -49,6 +49,7 @@
 					<div class="foot-lnk">
 						<label for="tab-1">Already Member?</label>
 					</div>
+					
 				</div>
 			</div>
 		</div>
