@@ -77,12 +77,10 @@ export class LoginComponent {
   Register(){
     debugger
     createUserWithEmailAndPassword(this.auth, this.registerEmail, this.registerClave).then((rest)=>{
-      debugger
       if(rest.user.email !== null){
         
       }
     }).catch((e)=>{
-      debugger
       switch(e.code){
         case "auth/invalid-email":
           this.msjError = "Email no valido";
